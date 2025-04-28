@@ -1,0 +1,67 @@
+{
+  "name": "crypto-scanner",
+  "version": "6.6.0",
+  "description": "Crypto Scanner is a privacy-oriented tool used to track ETH and token balances across multiple addresses and groups (ledgers)",
+  "author": "Leonid Beder",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "bin": {
+    "crypto-scanner": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "lint": "pnpm eslint src",
+    "format": "prettier --check --config .prettierrc --write src/**/*",
+    "build": "rm -rf dist && tsc --build tsconfig.json && pkg dist/index.js",
+    "build:win-x64": "pnpm build -t node16-win-x64 -o ./build/win-x64/crypto-scanner.exe",
+    "build:linux-x64": "pnpm build -t node16-linux-x64 -o ./build/linux-x64/crypto-scanner",
+    "build:macos-x64": "pnpm build -t node16-macos-x64 -o ./build/macos-x64/crypto-scanner",
+    "build:macos-arm64": "pnpm build -t node16-macos-arm64 -o ./build/macos-arm64/crypto-scanner",
+    "build:all": "pnpm build:win-x64 && pnpm build:linux-x64 && pnpm build:macos-x64 && pnpm build:macos-arm64",
+    "prepare": "pnpm snyk-protect",
+    "release": "pnpm build && pnpm prepare",
+    "update-tokens": "ts-node src/scripts/tokens.ts && pnpm format",
+    "snyk-protect": "snyk-protect",
+    "snyk-test": "snyk test"
+  },
+  "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "@snyk/protect": "^1.1292.2",
+    "@types/cli-progress": "^3.11.6",
+    "@types/cli-table": "^0.3.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/lodash": "^4.17.7",
+    "@types/node": "^22.1.0",
+    "@types/yargs": "^17.0.33",
+    "axios": "^1.7.3",
+    "chalk": "^4.1.2",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^7.1.0",
+    "pkg": "^5.8.1",
+    "prettier": "^3.3.3",
+    "prettier-package-json": "^2.8.0",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.2",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.0.1"
+  },
+  "dependencies": {
+    "cli-progress": "^3.12.0",
+    "cli-table": "^0.3.11",
+    "coingecko-api-v3": "^0.0.29",
+    "decimal.js": "^10.4.3",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "inquirer": "^8.2.6",
+    "lodash": "^4.17.21",
+    "yargs": "^17.7.2"
+  }
+}
